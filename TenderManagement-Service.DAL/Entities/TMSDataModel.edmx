@@ -1,0 +1,894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TMSDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ClientUrl" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FolderPath" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ArchivePath" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="LastFileFetch" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DownloadedFiles">
+          <Key>
+            <PropertyRef Name="DownloadedFileId" />
+          </Key>
+          <Property Name="DownloadedFileId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="bigint" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FolderPath" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="DownloadedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Function">
+          <Key>
+            <PropertyRef Name="FunctionId" />
+          </Key>
+          <Property Name="FunctionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FunctionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Code" Type="char" MaxLength="1" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="ProvinceId" />
+          </Key>
+          <Property Name="ProvinceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProvinceName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscriber">
+          <Key>
+            <PropertyRef Name="SubscriberId" />
+          </Key>
+          <Property Name="SubscriberId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="SubscriptionId" Type="int" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="FunctionId" Type="int" />
+          <Property Name="IsNational" Type="bit" />
+        </EntityType>
+        <EntityType Name="SubscriberAccomodity">
+          <Key>
+            <PropertyRef Name="CommodityId" />
+          </Key>
+          <Property Name="CommodityId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriberId" Type="bigint" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+        </EntityType>
+        <EntityType Name="SubscriberProvince">
+          <Key>
+            <PropertyRef Name="SubscriberProvinceId" />
+          </Key>
+          <Property Name="SubscriberProvinceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriberId" Type="bigint" Nullable="false" />
+          <Property Name="ProvinceId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubscriberRecipient">
+          <Key>
+            <PropertyRef Name="RecipientId" />
+          </Key>
+          <Property Name="RecipientId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriberId" Type="bigint" Nullable="false" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+        </EntityType>
+        <EntityType Name="SubscriptionType">
+          <Key>
+            <PropertyRef Name="SubscriptionId" />
+          </Key>
+          <Property Name="SubscriptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriptionTypeName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TenderMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenderId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BuyerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ClosingDate" Type="datetime" />
+          <Property Name="PublishedDate" Type="datetime" />
+          <Property Name="InspectionDate" Type="datetime" />
+          <Property Name="IsNational" Type="bit" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsDistributed" Type="bit" Nullable="false" />
+          <Property Name="HasProcessed" Type="tinyint" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+        </EntityType>
+        <EntityType Name="TenderMasterProvince">
+          <Key>
+            <PropertyRef Name="TenderProvinceId" />
+          </Key>
+          <Property Name="TenderProvinceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenderId" Type="bigint" Nullable="false" />
+          <Property Name="ProvinceId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DownloadedFiles_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="DownloadedFiles" Type="Self.DownloadedFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="DownloadedFiles">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscriber_Function">
+          <End Role="Function" Type="Self.Function" Multiplicity="0..1" />
+          <End Role="Subscriber" Type="Self.Subscriber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Function">
+              <PropertyRef Name="FunctionId" />
+            </Principal>
+            <Dependent Role="Subscriber">
+              <PropertyRef Name="FunctionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscriber_SubscriptionType">
+          <End Role="SubscriptionType" Type="Self.SubscriptionType" Multiplicity="0..1" />
+          <End Role="Subscriber" Type="Self.Subscriber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubscriptionType">
+              <PropertyRef Name="SubscriptionId" />
+            </Principal>
+            <Dependent Role="Subscriber">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriberAccomodity_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="SubscriberAccomodity" Type="Self.SubscriberAccomodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="SubscriberAccomodity">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriberAccomodity_Subscriber">
+          <End Role="Subscriber" Type="Self.Subscriber" Multiplicity="1" />
+          <End Role="SubscriberAccomodity" Type="Self.SubscriberAccomodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
+            </Principal>
+            <Dependent Role="SubscriberAccomodity">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriberProvince_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="SubscriberProvince" Type="Self.SubscriberProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="SubscriberProvince">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriberProvince_Subscriber">
+          <End Role="Subscriber" Type="Self.Subscriber" Multiplicity="1" />
+          <End Role="SubscriberProvince" Type="Self.SubscriberProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
+            </Principal>
+            <Dependent Role="SubscriberProvince">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriberRecipient_Subscriber">
+          <End Role="Subscriber" Type="Self.Subscriber" Multiplicity="1" />
+          <End Role="SubscriberRecipient" Type="Self.SubscriberRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
+            </Principal>
+            <Dependent Role="SubscriberRecipient">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TenderMaster_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="TenderMaster" Type="Self.TenderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="TenderMaster">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TenderMasterProvince_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="TenderMasterProvince" Type="Self.TenderMasterProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="TenderMasterProvince">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TenderMasterProvince_TenderMaster">
+          <End Role="TenderMaster" Type="Self.TenderMaster" Multiplicity="1" />
+          <End Role="TenderMasterProvince" Type="Self.TenderMasterProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TenderMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TenderMasterProvince">
+              <PropertyRef Name="TenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TMSDataModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DownloadedFiles" EntityType="Self.DownloadedFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Function" EntityType="Self.Function" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscriber" EntityType="Self.Subscriber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubscriberAccomodity" EntityType="Self.SubscriberAccomodity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubscriberProvince" EntityType="Self.SubscriberProvince" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubscriberRecipient" EntityType="Self.SubscriberRecipient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubscriptionType" EntityType="Self.SubscriptionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TenderMaster" EntityType="Self.TenderMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TenderMasterProvince" EntityType="Self.TenderMasterProvince" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DownloadedFiles_Client" Association="Self.FK_DownloadedFiles_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="DownloadedFiles" EntitySet="DownloadedFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscriber_Function" Association="Self.FK_Subscriber_Function">
+            <End Role="Function" EntitySet="Function" />
+            <End Role="Subscriber" EntitySet="Subscriber" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscriber_SubscriptionType" Association="Self.FK_Subscriber_SubscriptionType">
+            <End Role="SubscriptionType" EntitySet="SubscriptionType" />
+            <End Role="Subscriber" EntitySet="Subscriber" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriberAccomodity_Category" Association="Self.FK_SubscriberAccomodity_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="SubscriberAccomodity" EntitySet="SubscriberAccomodity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriberAccomodity_Subscriber" Association="Self.FK_SubscriberAccomodity_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscriber" />
+            <End Role="SubscriberAccomodity" EntitySet="SubscriberAccomodity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriberProvince_Province" Association="Self.FK_SubscriberProvince_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="SubscriberProvince" EntitySet="SubscriberProvince" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriberProvince_Subscriber" Association="Self.FK_SubscriberProvince_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscriber" />
+            <End Role="SubscriberProvince" EntitySet="SubscriberProvince" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriberRecipient_Subscriber" Association="Self.FK_SubscriberRecipient_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscriber" />
+            <End Role="SubscriberRecipient" EntitySet="SubscriberRecipient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TenderMaster_Category" Association="Self.FK_TenderMaster_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="TenderMaster" EntitySet="TenderMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TenderMasterProvince_Province" Association="Self.FK_TenderMasterProvince_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="TenderMasterProvince" EntitySet="TenderMasterProvince" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TenderMasterProvince_TenderMaster" Association="Self.FK_TenderMasterProvince_TenderMaster">
+            <End Role="TenderMaster" EntitySet="TenderMaster" />
+            <End Role="TenderMasterProvince" EntitySet="TenderMasterProvince" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TMSDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TMSDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="TMSDataModel.Category" />
+          <EntitySet Name="Clients" EntityType="TMSDataModel.Client" />
+          <EntitySet Name="DownloadedFiles" EntityType="TMSDataModel.DownloadedFile" />
+          <EntitySet Name="Functions" EntityType="TMSDataModel.Function" />
+          <EntitySet Name="Locations" EntityType="TMSDataModel.Location" />
+          <EntitySet Name="Provinces" EntityType="TMSDataModel.Province" />
+          <EntitySet Name="Subscribers" EntityType="TMSDataModel.Subscriber" />
+          <EntitySet Name="SubscriberAccomodities" EntityType="TMSDataModel.SubscriberAccomodity" />
+          <EntitySet Name="SubscriberProvinces" EntityType="TMSDataModel.SubscriberProvince" />
+          <EntitySet Name="SubscriberRecipients" EntityType="TMSDataModel.SubscriberRecipient" />
+          <EntitySet Name="SubscriptionTypes" EntityType="TMSDataModel.SubscriptionType" />
+          <EntitySet Name="TenderMasters" EntityType="TMSDataModel.TenderMaster" />
+          <EntitySet Name="TenderMasterProvinces" EntityType="TMSDataModel.TenderMasterProvince" />
+          <AssociationSet Name="FK_SubscriberAccomodity_Category" Association="TMSDataModel.FK_SubscriberAccomodity_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="SubscriberAccomodity" EntitySet="SubscriberAccomodities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TenderMaster_Category" Association="TMSDataModel.FK_TenderMaster_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="TenderMaster" EntitySet="TenderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DownloadedFiles_Client" Association="TMSDataModel.FK_DownloadedFiles_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="DownloadedFile" EntitySet="DownloadedFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscriber_Function" Association="TMSDataModel.FK_Subscriber_Function">
+            <End Role="Function" EntitySet="Functions" />
+            <End Role="Subscriber" EntitySet="Subscribers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriberProvince_Province" Association="TMSDataModel.FK_SubscriberProvince_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="SubscriberProvince" EntitySet="SubscriberProvinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TenderMasterProvince_Province" Association="TMSDataModel.FK_TenderMasterProvince_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="TenderMasterProvince" EntitySet="TenderMasterProvinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscriber_SubscriptionType" Association="TMSDataModel.FK_Subscriber_SubscriptionType">
+            <End Role="SubscriptionType" EntitySet="SubscriptionTypes" />
+            <End Role="Subscriber" EntitySet="Subscribers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriberAccomodity_Subscriber" Association="TMSDataModel.FK_SubscriberAccomodity_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscribers" />
+            <End Role="SubscriberAccomodity" EntitySet="SubscriberAccomodities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriberProvince_Subscriber" Association="TMSDataModel.FK_SubscriberProvince_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscribers" />
+            <End Role="SubscriberProvince" EntitySet="SubscriberProvinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriberRecipient_Subscriber" Association="TMSDataModel.FK_SubscriberRecipient_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscribers" />
+            <End Role="SubscriberRecipient" EntitySet="SubscriberRecipients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TenderMasterProvince_TenderMaster" Association="TMSDataModel.FK_TenderMasterProvince_TenderMaster">
+            <End Role="TenderMaster" EntitySet="TenderMasters" />
+            <End Role="TenderMasterProvince" EntitySet="TenderMasterProvinces" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClientUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FolderPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ArchivePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="LastFileFetch" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="DownloadedFile">
+          <Key>
+            <PropertyRef Name="DownloadedFileId" />
+          </Key>
+          <Property Name="DownloadedFileId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int64" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FolderPath" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="DownloadedOn" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Function">
+          <Key>
+            <PropertyRef Name="FunctionId" />
+          </Key>
+          <Property Name="FunctionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="ProvinceId" />
+          </Key>
+          <Property Name="ProvinceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProvinceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscriber">
+          <Key>
+            <PropertyRef Name="SubscriberId" />
+          </Key>
+          <Property Name="SubscriberId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="SubscriptionId" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="FunctionId" Type="Int32" />
+          <Property Name="IsNational" Type="Boolean" />
+          <NavigationProperty Name="Function" Relationship="TMSDataModel.FK_Subscriber_Function" FromRole="Subscriber" ToRole="Function" />
+          <NavigationProperty Name="SubscriptionType" Relationship="TMSDataModel.FK_Subscriber_SubscriptionType" FromRole="Subscriber" ToRole="SubscriptionType" />
+          <NavigationProperty Name="SubscriberAccomodities" Relationship="TMSDataModel.FK_SubscriberAccomodity_Subscriber" FromRole="Subscriber" ToRole="SubscriberAccomodity" />
+          <NavigationProperty Name="SubscriberProvinces" Relationship="TMSDataModel.FK_SubscriberProvince_Subscriber" FromRole="Subscriber" ToRole="SubscriberProvince" />
+          <NavigationProperty Name="SubscriberRecipients" Relationship="TMSDataModel.FK_SubscriberRecipient_Subscriber" FromRole="Subscriber" ToRole="SubscriberRecipient" />
+        </EntityType>
+        <EntityType Name="SubscriberAccomodity">
+          <Key>
+            <PropertyRef Name="CommodityId" />
+          </Key>
+          <Property Name="CommodityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriberId" Type="Int64" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+        </EntityType>
+        <EntityType Name="SubscriberProvince">
+          <Key>
+            <PropertyRef Name="SubscriberProvinceId" />
+          </Key>
+          <Property Name="SubscriberProvinceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriberId" Type="Int64" Nullable="false" />
+          <Property Name="ProvinceId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubscriberRecipient">
+          <Key>
+            <PropertyRef Name="RecipientId" />
+          </Key>
+          <Property Name="RecipientId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriberId" Type="Int64" Nullable="false" />
+          <Property Name="ContactName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+        </EntityType>
+        <EntityType Name="SubscriptionType">
+          <Key>
+            <PropertyRef Name="SubscriptionId" />
+          </Key>
+          <Property Name="SubscriptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriptionTypeName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TenderMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenderId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ClosingDate" Type="DateTime" Precision="3" />
+          <Property Name="PublishedDate" Type="DateTime" Precision="3" />
+          <Property Name="InspectionDate" Type="DateTime" Precision="3" />
+          <Property Name="IsNational" Type="Boolean" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsDistributed" Type="Boolean" Nullable="false" />
+          <Property Name="HasProcessed" Type="Byte" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <NavigationProperty Name="Category" Relationship="TMSDataModel.FK_TenderMaster_Category" FromRole="TenderMaster" ToRole="Category" />
+          <NavigationProperty Name="TenderMasterProvinces" Relationship="TMSDataModel.FK_TenderMasterProvince_TenderMaster" FromRole="TenderMaster" ToRole="TenderMasterProvince" />
+        </EntityType>
+        <EntityType Name="TenderMasterProvince">
+          <Key>
+            <PropertyRef Name="TenderProvinceId" />
+          </Key>
+          <Property Name="TenderProvinceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenderId" Type="Int64" Nullable="false" />
+          <Property Name="ProvinceId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TenderMaster" Relationship="TMSDataModel.FK_TenderMasterProvince_TenderMaster" FromRole="TenderMasterProvince" ToRole="TenderMaster" />
+        </EntityType>
+        <Association Name="FK_SubscriberAccomodity_Category">
+          <End Type="TMSDataModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="TMSDataModel.SubscriberAccomodity" Role="SubscriberAccomodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="SubscriberAccomodity">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TenderMaster_Category">
+          <End Type="TMSDataModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="TMSDataModel.TenderMaster" Role="TenderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="TenderMaster">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DownloadedFiles_Client">
+          <End Type="TMSDataModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="TMSDataModel.DownloadedFile" Role="DownloadedFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="DownloadedFile">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscriber_Function">
+          <End Type="TMSDataModel.Function" Role="Function" Multiplicity="0..1" />
+          <End Type="TMSDataModel.Subscriber" Role="Subscriber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Function">
+              <PropertyRef Name="FunctionId" />
+            </Principal>
+            <Dependent Role="Subscriber">
+              <PropertyRef Name="FunctionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriberProvince_Province">
+          <End Type="TMSDataModel.Province" Role="Province" Multiplicity="1" />
+          <End Type="TMSDataModel.SubscriberProvince" Role="SubscriberProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="SubscriberProvince">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TenderMasterProvince_Province">
+          <End Type="TMSDataModel.Province" Role="Province" Multiplicity="1" />
+          <End Type="TMSDataModel.TenderMasterProvince" Role="TenderMasterProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="TenderMasterProvince">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscriber_SubscriptionType">
+          <End Type="TMSDataModel.SubscriptionType" Role="SubscriptionType" Multiplicity="0..1" />
+          <End Type="TMSDataModel.Subscriber" Role="Subscriber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubscriptionType">
+              <PropertyRef Name="SubscriptionId" />
+            </Principal>
+            <Dependent Role="Subscriber">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriberAccomodity_Subscriber">
+          <End Type="TMSDataModel.Subscriber" Role="Subscriber" Multiplicity="1" />
+          <End Type="TMSDataModel.SubscriberAccomodity" Role="SubscriberAccomodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
+            </Principal>
+            <Dependent Role="SubscriberAccomodity">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriberProvince_Subscriber">
+          <End Type="TMSDataModel.Subscriber" Role="Subscriber" Multiplicity="1" />
+          <End Type="TMSDataModel.SubscriberProvince" Role="SubscriberProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
+            </Principal>
+            <Dependent Role="SubscriberProvince">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriberRecipient_Subscriber">
+          <End Type="TMSDataModel.Subscriber" Role="Subscriber" Multiplicity="1" />
+          <End Type="TMSDataModel.SubscriberRecipient" Role="SubscriberRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
+            </Principal>
+            <Dependent Role="SubscriberRecipient">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TenderMasterProvince_TenderMaster">
+          <End Type="TMSDataModel.TenderMaster" Role="TenderMaster" Multiplicity="1" />
+          <End Type="TMSDataModel.TenderMasterProvince" Role="TenderMasterProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TenderMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TenderMasterProvince">
+              <PropertyRef Name="TenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TMSDataModelStoreContainer" CdmEntityContainer="TMSDBContext">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="TMSDataModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="TMSDataModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="LastFileFetch" ColumnName="LastFileFetch" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ArchivePath" ColumnName="ArchivePath" />
+                <ScalarProperty Name="FolderPath" ColumnName="FolderPath" />
+                <ScalarProperty Name="ClientUrl" ColumnName="ClientUrl" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DownloadedFiles">
+            <EntityTypeMapping TypeName="TMSDataModel.DownloadedFile">
+              <MappingFragment StoreEntitySet="DownloadedFiles">
+                <ScalarProperty Name="DownloadedOn" ColumnName="DownloadedOn" />
+                <ScalarProperty Name="FolderPath" ColumnName="FolderPath" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="DownloadedFileId" ColumnName="DownloadedFileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Functions">
+            <EntityTypeMapping TypeName="TMSDataModel.Function">
+              <MappingFragment StoreEntitySet="Function">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="FunctionId" ColumnName="FunctionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="TMSDataModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="TMSDataModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscribers">
+            <EntityTypeMapping TypeName="TMSDataModel.Subscriber">
+              <MappingFragment StoreEntitySet="Subscriber">
+                <ScalarProperty Name="IsNational" ColumnName="IsNational" />
+                <ScalarProperty Name="FunctionId" ColumnName="FunctionId" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubscriberAccomodities">
+            <EntityTypeMapping TypeName="TMSDataModel.SubscriberAccomodity">
+              <MappingFragment StoreEntitySet="SubscriberAccomodity">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
+                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubscriberProvinces">
+            <EntityTypeMapping TypeName="TMSDataModel.SubscriberProvince">
+              <MappingFragment StoreEntitySet="SubscriberProvince">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
+                <ScalarProperty Name="SubscriberProvinceId" ColumnName="SubscriberProvinceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubscriberRecipients">
+            <EntityTypeMapping TypeName="TMSDataModel.SubscriberRecipient">
+              <MappingFragment StoreEntitySet="SubscriberRecipient">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
+                <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubscriptionTypes">
+            <EntityTypeMapping TypeName="TMSDataModel.SubscriptionType">
+              <MappingFragment StoreEntitySet="SubscriptionType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SubscriptionTypeName" ColumnName="SubscriptionTypeName" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TenderMasters">
+            <EntityTypeMapping TypeName="TMSDataModel.TenderMaster">
+              <MappingFragment StoreEntitySet="TenderMaster">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="HasProcessed" ColumnName="HasProcessed" />
+                <ScalarProperty Name="IsDistributed" ColumnName="IsDistributed" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="IsNational" ColumnName="IsNational" />
+                <ScalarProperty Name="InspectionDate" ColumnName="InspectionDate" />
+                <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
+                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+                <ScalarProperty Name="TenderId" ColumnName="TenderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TenderMasterProvinces">
+            <EntityTypeMapping TypeName="TMSDataModel.TenderMasterProvince">
+              <MappingFragment StoreEntitySet="TenderMasterProvince">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="TenderId" ColumnName="TenderId" />
+                <ScalarProperty Name="TenderProvinceId" ColumnName="TenderProvinceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
